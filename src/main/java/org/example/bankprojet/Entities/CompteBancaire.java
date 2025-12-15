@@ -1,5 +1,6 @@
 package org.example.bankprojet.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="Compte_type")
 public class CompteBancaire implements Serializable {
 @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private Date dateCreation;
     private Double sold;
     private String devise;

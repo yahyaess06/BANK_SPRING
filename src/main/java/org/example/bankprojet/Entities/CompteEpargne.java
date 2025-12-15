@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @DiscriminatorValue("CompteEpargne")
-public class CompteEpargne {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CompteEpargne extends CompteBancaire{
+
     private double tauxInteret;
 }

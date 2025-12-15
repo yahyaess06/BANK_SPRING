@@ -1,6 +1,7 @@
 package org.example.bankprojet.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,13 +14,13 @@ import java.util.Date;
 @Entity
 public class Operation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    private String id;
     private Date dateOp;
     private Double montant;
-    private TypeOp type;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "compteBancaire_id")
     private CompteBancaire compteBancaire;
 

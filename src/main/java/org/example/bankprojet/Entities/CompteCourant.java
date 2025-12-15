@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @DiscriminatorValue("CompteCourant")
-public class CompteCourant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class CompteCourant extends CompteBancaire{
+
     private double decouvert;
 }
