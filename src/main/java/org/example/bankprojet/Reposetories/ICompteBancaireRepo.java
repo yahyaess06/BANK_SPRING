@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ICompteBancaireRepo extends JpaRepository<CompteBancaire, String> {
+    void deleteAllByClientId(Long id);
 }

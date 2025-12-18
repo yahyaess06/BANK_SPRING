@@ -7,6 +7,7 @@ import org.example.bankprojet.DTO.Cdto;
 import org.example.bankprojet.Entities.*;
 import org.example.bankprojet.Mappers.MapperClients;
 import org.example.bankprojet.Reposetories.IClientRepo;
+import org.example.bankprojet.Reposetories.ICompteBancaireRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ClientService implements IClientService {
 
-
+    private ICompteBancaireRepo cbrepo;
   private IClientRepo clientRepo;
   private MapperClients mClients;
 
@@ -35,6 +36,7 @@ public class ClientService implements IClientService {
     }
     @Override
     public void supprimerClient(Long id) {
+cbrepo.deleteAllByClientId(id);
         clientRepo.deleteById(id);
     }
 @Override
