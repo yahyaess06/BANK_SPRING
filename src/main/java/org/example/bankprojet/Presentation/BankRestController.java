@@ -2,6 +2,7 @@ package org.example.bankprojet.Presentation;
 
 import lombok.AllArgsConstructor;
 import org.example.bankprojet.DTO.Cbdto;
+import org.example.bankprojet.DTO.DTOaffichageb;
 import org.example.bankprojet.DTO.Odto;
 import org.example.bankprojet.DTO.VDto;
 import org.example.bankprojet.Entities.CompteBancaire;
@@ -24,7 +25,7 @@ public class BankRestController {
         return icbService.ajouterCompteEpargne(cbdto);
     }
     @GetMapping("/accs/{id}")
-    public CompteBancaire voireCompte(@PathVariable String id) throws Exception {
+    public DTOaffichageb voireCompte(@PathVariable String id) throws Exception {
         return icbService.voireAcc(id);
     }
 }

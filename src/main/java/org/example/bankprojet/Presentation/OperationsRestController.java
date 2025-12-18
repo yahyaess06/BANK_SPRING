@@ -7,10 +7,7 @@ import org.example.bankprojet.DTO.OpeDto;
 import org.example.bankprojet.DTO.VDto;
 import org.example.bankprojet.Metier.IOperationsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,8 +30,8 @@ public class OperationsRestController {
     public void versementOperation(@RequestBody VDto dto)throws Exception{
         operationsService.VersementOperation(dto);
     }
-    @GetMapping("Operations")
-    public List<OpeDto> getOperations(String id){
+    @GetMapping("Operations/{id}")
+    public List<OpeDto> getOperations(@PathVariable String id) {
         return operationsService.voireOperationsAcc(id);
     }
 }

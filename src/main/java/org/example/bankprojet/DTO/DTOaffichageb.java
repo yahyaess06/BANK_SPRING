@@ -3,16 +3,17 @@ package org.example.bankprojet.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.bankprojet.Entities.TypeOp;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpeDto {
+public class DTOaffichageb {
     private String id;
-    private Date dateOp;
-    private Double montant;
-    private TypeOp type_operation;
+    private Date dateCreation;
+    private Double sold;
+    private String devise;
+    private Double decouvert;
+    private Double tauxInteret;
 }
