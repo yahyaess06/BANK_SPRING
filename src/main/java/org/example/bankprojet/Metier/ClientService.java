@@ -24,8 +24,8 @@ public class ClientService implements IClientService {
   private MapperClients mClients;
 
     @Override
-    public List<Cdto> VoireCients() {
-        List<Client> clients=clientRepo.findAll();
+    public List<Cdto> VoireCients(String motcle) {
+        List<Client> clients=clientRepo.findByNameContains(motcle);
         return  clients.stream().map(client->mClients.tClientaDto(client)).collect(Collectors.toList());
     }
     @Override

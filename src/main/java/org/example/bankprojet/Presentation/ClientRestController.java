@@ -29,8 +29,8 @@ public class ClientRestController {
         return clientService.ajouterClient(cdto);
     }
     @GetMapping("/Clients")
-    public List<Cdto> voireClients(){
-        return clientService.VoireCients();
+    public List<Cdto> voireClients(@RequestParam(required = false, defaultValue = "") String motcle){
+        return clientService.VoireCients(motcle);
     }
     @PutMapping("/modifier")
     public void modifierClient(@RequestBody  Cdto cdto) throws Exception {
