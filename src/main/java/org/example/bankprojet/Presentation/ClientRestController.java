@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 @org.springframework.web.bind.annotation.RestController
 @AllArgsConstructor
-
+@CrossOrigin("*")
 public class ClientRestController {
 
     IClientService clientService;
