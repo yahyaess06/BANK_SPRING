@@ -2,19 +2,18 @@ package org.example.bankprojet;
 
 import org.example.bankprojet.DTO.Cbdto;
 import org.example.bankprojet.DTO.Odto;
-import org.example.bankprojet.Entities.Client;
-import org.example.bankprojet.Entities.CompteCourant;
-import org.example.bankprojet.Entities.Operation;
-import org.example.bankprojet.Entities.StatCompte;
+import org.example.bankprojet.Entities.*;
 import org.example.bankprojet.Metier.IOperationsService;
 import org.example.bankprojet.Metier.IcbService;
 import org.example.bankprojet.Reposetories.IClientRepo;
+import org.example.bankprojet.Reposetories.ICompteBancaireRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -24,7 +23,7 @@ public class BankProjetApplication {
         SpringApplication.run(BankProjetApplication.class, args);
     }
     @Bean
-    CommandLineRunner start(IClientRepo clientRepo, IcbService cbs, IOperationsService os) {
+    CommandLineRunner start(IClientRepo clientRepo, IcbService cbs, ICompteBancaireRepo cr, IOperationsService os) {
         return args1 -> {
 
 
@@ -48,6 +47,26 @@ public class BankProjetApplication {
                     .sold(91000.0).decouvert(0.0).devise("MAD")
                     .build();
             cbs.ajouterCompteCourant(cbdto2);
+            List<CompteBancaire> cobs=cr.findCompteBancaireByClientId(1L);
+            for(CompteBancaire cb: cobs){
+                Odto odto=Odto.builder().id(cb.getId())
+                        .mantant(1000.0).build();
+                os.debitOperation(odto);
+                Odto odto1=Odto.builder().id(cb.getId())
+                        .mantant(1000.0).build();
+                os.debitOperation(odto1);
+            }
+
+            List<CompteBancaire> cobss=cr.findCompteBancaireByClientId(2L);
+            for(CompteBancaire cb: cobss){
+                Odto odto=Odto.builder().id(cb.getId())
+                        .mantant(2000.0).build();
+                os.creditOperation(odto);
+                Odto odto1=Odto.builder().id(cb.getId())
+                        .mantant(1000.0).build();
+                os.debitOperation(odto1);
+            }
+
 
         };
     }

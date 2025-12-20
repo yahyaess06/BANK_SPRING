@@ -10,6 +10,8 @@ import org.example.bankprojet.Metier.IcbService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+@CrossOrigin("*")
 @Controller
 @RestController
 @AllArgsConstructor
@@ -27,5 +29,9 @@ public class BankRestController {
     @GetMapping("/accs/{id}")
     public DTOaffichageb voireCompte(@PathVariable String id) throws Exception {
         return icbService.voireAcc(id);
+    }
+    @GetMapping("/accsbyclid/{id}")
+    public List<DTOaffichageb> voireCbyCid(@PathVariable Long id) throws Exception {
+        return  icbService.voireAccparClientID(id);
     }
 }

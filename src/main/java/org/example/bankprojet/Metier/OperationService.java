@@ -71,16 +71,15 @@ public class OperationService implements IOperationsService{
     public void VersementOperation(VDto vDto) throws CompteInexistantException, SoldInsuffisantException {
         CompteBancaire cbverse=cbrepo.findById(vDto.getIdCompteverse()).orElse(null);
         if(cbverse == null) {
-            throw new CompteInexistantException("Compte non existant");
+            throw new CompteInexistantException("Compte pour verser non existant");
         }
         CompteBancaire cbrecoie=cbrepo.findById(vDto.getIdCompterecoie()).orElse(null);
         if(cbrecoie == null) {
-            throw new CompteInexistantException("Compte non existant");
+            throw new CompteInexistantException("Compte pour recoire non existant");
         }
         Double nvSoldverse=cbverse.getSold()-vDto.getMantant();
         cbverse.setSold(nvSoldverse);
         cbrepo.save(cbverse);
-
         if (cbverse.getSold()==0 || cbverse.getSold()<vDto.getMantant()) {
             throw new SoldInsuffisantException("Sold null ou pas suffisant");
         }
@@ -95,7 +94,8 @@ public class OperationService implements IOperationsService{
         op.setCompteBancaire(cbverse);
         opRepo.save(op);
         Operation op2=new Operation();
-        op.setId(UUID.randomUUID().toString());
+        op2.setId(UUID.randomUUID().toString());
+        op2.setDateOp(new Date());
         op2.setType_operation(TypeOp.CREDIT);
         op2.setMontant(vDto.getMantant());
         op2.setCompteBancaire(cbrecoie);

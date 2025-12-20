@@ -12,7 +12,9 @@ import org.example.bankprojet.Reposetories.ICompteBancaireRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -39,7 +41,6 @@ public class CbService implements IcbService{
         cbrepo.save(cco);
         return cco;
     }
-
     @Override
     public CompteEpargne ajouterCompteEpargne(Cbdto cbdto)throws ClientNonExistantException{
         CompteEpargne ce=new CompteEpargne();
@@ -60,9 +61,20 @@ public class CbService implements IcbService{
     @Override
     public DTOaffichageb voireAcc(String id) throws CompteInexistantException {
         CompteBancaire c=cbrepo.findById(id).orElse(null);
+
         if(c == null) {
             throw new CompteInexistantException("Compte non existant");
         }
         return mb.tBankDto(c);
+    }
+    @Override
+    public List<DTOaffichageb> voireAccparClientID(Long id) throws ClientNonExistantException{
+        Client c=clientRepo.findById(id).orElse(null);
+        if(c == null) {
+            throw new ClientNonExistantException("Client non existant");
+        }
+        List<CompteBancaire> cs=cbrepo.findCompteBancaireByClientId(id);
+        return cs.stream().map(compte->mb.tBankDto(compte))
+                .collect(Collectors.toList());
     }
 }
