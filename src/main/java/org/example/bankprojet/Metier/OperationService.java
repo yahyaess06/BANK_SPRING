@@ -15,6 +15,8 @@ import org.example.bankprojet.Reposetories.ICompteBancaireRepo;
 import org.example.bankprojet.Reposetories.IOperationRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +47,7 @@ public class OperationService implements IOperationsService{
         op.setId(UUID.randomUUID().toString());
         op.setType_operation(TypeOp.DEBIT);
         op.setMontant(ddto.getMantant());
-        op.setDateOp(new Date());
+        op.setDateOp(LocalDate.now());
         op.setCompteBancaire(cb);
         opRepo.save(op);
     }
@@ -63,7 +65,7 @@ public class OperationService implements IOperationsService{
         op.setId(UUID.randomUUID().toString());
         op.setType_operation(TypeOp.CREDIT);
         op.setMontant(odto.getMantant());
-        op.setDateOp(new Date());
+        op.setDateOp(LocalDate.now());
         op.setCompteBancaire(cb);
         opRepo.save(op);
     }
@@ -88,14 +90,14 @@ public class OperationService implements IOperationsService{
         cbrepo.save(cbrecoie);
         Operation op=new Operation();
         op.setId(UUID.randomUUID().toString());
-        op.setDateOp(new Date());
+        op.setDateOp(LocalDate.now());
         op.setType_operation(TypeOp.DEBIT);
         op.setMontant(vDto.getMantant());
         op.setCompteBancaire(cbverse);
         opRepo.save(op);
         Operation op2=new Operation();
         op2.setId(UUID.randomUUID().toString());
-        op2.setDateOp(new Date());
+        op2.setDateOp(LocalDate.now());
         op2.setType_operation(TypeOp.CREDIT);
         op2.setMontant(vDto.getMantant());
         op2.setCompteBancaire(cbrecoie);
@@ -107,6 +109,15 @@ public class OperationService implements IOperationsService{
        List<Operation> op= opRepo.findByCompteBancaireId(id);
         return  op.stream().
                 map(operation->mapperOp.aOpeDto(operation))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<OpeDto> voireOperationlyom(){
+LocalDate lyom=LocalDate.now();
+        List<Operation> op= opRepo.findAll();
+
+        return op.stream().
+        map(ope->mapperOp.aOpeDto(ope))
                 .collect(Collectors.toList());
     }
 }

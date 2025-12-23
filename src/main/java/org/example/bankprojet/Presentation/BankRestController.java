@@ -34,4 +34,18 @@ public class BankRestController {
     public List<DTOaffichageb> voireCbyCid(@PathVariable Long id) throws Exception {
         return  icbService.voireAccparClientID(id);
     }
+    @DeleteMapping("/accs/suprimmer/{id}")
+    public void suprimerCompte(@PathVariable String id) throws Exception {
+        icbService.suprimerAcc(id);
+    }
+    @GetMapping("accs/status/suspended/{id}")
+    public Boolean suspendreAcc(@PathVariable String id) throws Exception {
+        icbService.suspendreAcc(id);
+        return true;
+    }
+    @GetMapping("accs/status/activated/{id}")
+    public Boolean reactiverAcc(@PathVariable String id) throws Exception {
+        icbService.activerAcc(id);
+    return true;
+    }
 }

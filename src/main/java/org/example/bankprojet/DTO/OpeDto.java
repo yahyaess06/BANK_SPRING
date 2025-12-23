@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.bankprojet.Entities.TypeOp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class OpeDto {
     private String id;
-    private Date dateOp;
+    private LocalDate dateOp;
     private Double montant;
     private TypeOp type_operation;
 }

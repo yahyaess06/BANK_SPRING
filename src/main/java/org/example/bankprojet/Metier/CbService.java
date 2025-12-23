@@ -1,5 +1,6 @@
 package org.example.bankprojet.Metier;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.bankprojet.DTO.Cbdto;
 import org.example.bankprojet.DTO.DTOaffichageb;
@@ -9,6 +10,7 @@ import org.example.bankprojet.Exceptions.CompteInexistantException;
 import org.example.bankprojet.Mappers.MapperBank;
 import org.example.bankprojet.Reposetories.IClientRepo;
 import org.example.bankprojet.Reposetories.ICompteBancaireRepo;
+import org.example.bankprojet.Reposetories.IOperationRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,11 +20,13 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class CbService implements IcbService{
 
     private IClientRepo clientRepo;
     private ICompteBancaireRepo cbrepo;
     private MapperBank mb;
+    private IOperationRepo op;
 
     @Override
     public CompteCourant ajouterCompteCourant(Cbdto cbdto) throws Exception {
@@ -77,4 +81,28 @@ public class CbService implements IcbService{
         return cs.stream().map(compte->mb.tBankDto(compte))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void suprimerAcc(String id) {
+      op.deleteByCompteBancaireId(id);
+      cbrepo.deleteById(id);
+    }
+
+    @Override
+    public void suspendreAcc(String id) throws CompteInexistantException{
+        CompteBancaire cb=cbrepo.findById(id).orElse(null);
+        if(cb == null) {
+            throw new CompteInexistantException("compte inexsistant");
+        }
+        cb.setStatus(StatCompte.SUSPENDED);
+        cbrepo.save(cb);
+    }
+@Override
+public void activerAcc(String id)throws CompteInexistantException{
+        CompteBancaire cb=cbrepo.findById(id).orElse(null);
+    if(cb == null) {
+        throw new CompteInexistantException("compte inexsistant");
+    }   cb.setStatus(StatCompte.ACTIVATED);
+    cbrepo.save(cb);
+}
 }

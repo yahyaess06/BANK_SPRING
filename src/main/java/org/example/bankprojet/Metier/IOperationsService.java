@@ -12,4 +12,6 @@ public interface IOperationsService {
     void creditOperation(Odto odto) throws Exception;
     void VersementOperation(VDto vDto) throws Exception;
     List<OpeDto> voireOperationsAcc(String id);
+
+    List<OpeDto> voireOperationlyom();
 }

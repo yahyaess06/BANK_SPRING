@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class Operation {
     @Id
 
     private String id;
-    private Date dateOp;
+    private LocalDate dateOp;
     private Double montant;
 
     @ManyToOne

@@ -34,4 +34,8 @@ public class OperationsRestController {
     public List<OpeDto> getOperations(@PathVariable String id) {
         return operationsService.voireOperationsAcc(id);
     }
+    @GetMapping("Oprations/aujourdhui")
+    public List<OpeDto> getOperationsAujourdhui() {
+        return operationsService.voireOperationlyom();
+    }
 }

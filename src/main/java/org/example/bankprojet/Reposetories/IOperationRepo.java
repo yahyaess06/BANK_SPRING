@@ -4,9 +4,14 @@ import org.example.bankprojet.Entities.Operation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface IOperationRepo extends JpaRepository<Operation, String> {
     List<Operation> findByCompteBancaireId(String compteBancaireId);
+    void deleteByCompteBancaireId(String id);
+
+    List<Operation> findByDateOp(LocalDate dateOp);
 }
