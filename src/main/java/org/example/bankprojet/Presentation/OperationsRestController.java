@@ -3,6 +3,7 @@ package org.example.bankprojet.Presentation;
 
 import lombok.AllArgsConstructor;
 import org.example.bankprojet.DTO.Odto;
+import org.example.bankprojet.DTO.OpDTO;
 import org.example.bankprojet.DTO.OpeDto;
 import org.example.bankprojet.DTO.VDto;
 import org.example.bankprojet.Metier.IOperationsService;
@@ -35,7 +36,7 @@ public class OperationsRestController {
         return operationsService.voireOperationsAcc(id);
     }
     @GetMapping("Oprations/aujourdhui")
-    public List<OpeDto> getOperationsAujourdhui() {
+    public List<OpDTO> getOperationsAujourdhui() {
         return operationsService.voireOperationlyom();
     }
 }

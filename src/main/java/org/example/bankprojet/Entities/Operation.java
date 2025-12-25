@@ -21,7 +21,6 @@ public class Operation {
     private Double montant;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "compteBancaire_id")
     private CompteBancaire compteBancaire;
 

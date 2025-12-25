@@ -19,12 +19,12 @@ public class BankRestController {
     IcbService icbService;
 
     @PostMapping("/AjouterAccourant")
-    public CompteBancaire ajouterAccourant(@RequestBody Cbdto cbdto)throws Exception{
-        return icbService.ajouterCompteCourant(cbdto);
+    public void ajouterAccourant(@RequestBody Cbdto cbdto)throws Exception{
+        icbService.ajouterCompteCourant(cbdto);
     }
     @PostMapping("/AjouterAcepargne")
-    public CompteBancaire ajouterAcepargne(@RequestBody Cbdto cbdto)throws Exception{
-        return icbService.ajouterCompteEpargne(cbdto);
+    public void ajouterAcepargne(@RequestBody Cbdto cbdto)throws Exception{
+        icbService.ajouterCompteEpargne(cbdto);
     }
     @GetMapping("/accs/{id}")
     public DTOaffichageb voireCompte(@PathVariable String id) throws Exception {
